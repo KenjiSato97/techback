@@ -21,8 +21,11 @@ public class FilmeService {
     public List<Filme> listar(){
          return repository.findAll();
     }
+    public Filme buscarPorId(Integer id) {
+        return repository.findById(id).get();
+    }
 
-    public void excluir(Integer id){
+    public void remover(Integer id){
         repository.deleteById(id);
     }
 
@@ -32,4 +35,5 @@ public class FilmeService {
         }
         return repository.save(filme);
     }
+
 }
