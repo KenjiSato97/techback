@@ -4,18 +4,20 @@ package br.uniesp.si.techback.controller;
 import br.uniesp.si.techback.model.Usuario;
 import br.uniesp.si.techback.repository.UsuarioRepository;
 import br.uniesp.si.techback.service.UsuarioService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@RequiredArgsConstructor
 @RestController
 @RequestMapping("/usuario")
 public class UsuarioController {
 
-    @Autowired
-    private UsuarioService service;
+
+    private final UsuarioService service;
 
 
     @GetMapping
@@ -26,8 +28,8 @@ public class UsuarioController {
     public Usuario adicionar(@RequestBody Usuario usuario){
         return service.cadastrar(usuario);
     }
-    @GetMapping
-    public Usuario buscarPorId(Long id){
+    @GetMapping("/{id}")
+    public Usuario buscarPorId(@PathVariable Long id){
         return service.buscarPorId(id);
     }
 

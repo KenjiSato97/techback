@@ -2,6 +2,7 @@ package br.uniesp.si.techback.controller;
 
 import br.uniesp.si.techback.model.Livro;
 import br.uniesp.si.techback.service.LivroService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -9,12 +10,13 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Optional;
 
+@RequiredArgsConstructor
 @RestController
 @RequestMapping("/livros")
 public class LivroController {
 
-    @Autowired
-    private LivroService livroService;
+
+    private final LivroService livroService;
 
     // Endpoint para criar um novo livro
     @PostMapping
@@ -32,7 +34,7 @@ public class LivroController {
 
     // Endpoint para buscar um livro por ID
     @GetMapping("/{id}")
-    public ResponseEntity<Livro> buscarPorId(@PathVariable Long id) {
+    public ResponseEntity<Livro> buscarPorId(@PathVariable Integer id) {
         Optional<Livro> livroOptional = livroService.buscarPorId(id);
         if (livroOptional.isPresent()) {
             return ResponseEntity.ok(livroOptional.get());
@@ -43,7 +45,7 @@ public class LivroController {
 
     // Endpoint para atualizar um livro
     @PutMapping("/{id}")
-    public ResponseEntity<Livro> atualizar(@PathVariable Long id, @RequestBody Livro livro) {
+    public ResponseEntity<Livro> atualizar(@PathVariable Integer id, @RequestBody Livro livro) {
         Optional<Livro> livroOptional = livroService.buscarPorId(id);
         if (livroOptional.isPresent()) {
             livro.setId(id);
@@ -56,7 +58,7 @@ public class LivroController {
 
     // Endpoint para excluir um livro
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> excluir(@PathVariable Long id) {
+    public ResponseEntity<Void> excluir(@PathVariable Integer id) {
         Optional<Livro> livroOptional = livroService.buscarPorId(id);
         if (livroOptional.isPresent()) {
             livroService.excluir(id);

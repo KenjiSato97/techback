@@ -2,16 +2,18 @@ package br.uniesp.si.techback.service;
 
 import br.uniesp.si.techback.model.Livro;
 import br.uniesp.si.techback.repository.LivroRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
+@RequiredArgsConstructor
 @Service
 public class LivroService {
-    @Autowired
-    private LivroRepository livroRepository;
+
+    private final LivroRepository livroRepository;
 
 
     public Livro salvar(Livro livro) {
@@ -24,7 +26,7 @@ public class LivroService {
     }
 
 
-    public Optional<Livro> buscarPorId(Long id) {
+    public Optional<Livro> buscarPorId(Integer id) {
         return livroRepository.findById(id);
     }
 
@@ -34,7 +36,7 @@ public class LivroService {
     }
 
 
-    public void excluir(Long id) {
+    public void excluir(Integer id) {
         livroRepository.deleteById(id);
     }
 }
